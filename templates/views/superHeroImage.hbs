@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperHeroImage</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        body>div>div>form>select {
+            width: 103px;
+            height: 33px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <p style="text-align: center;">SuperHero Image Based on Name</p>
+        <div style="display: flex; justify-content: center; flex-direction: row;">
+            <form onsubmit="event.preventDefault(); callMe();">
+                <input type="text" name="Name" placeholder="Name">
+                <select name="Size">
+                    <option value="xs">xs</option>
+                    <option value="sm">sm</option>
+                    <option value="md">md</option>
+                    <option value="lg">lg</option>
+                </select>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <a href="" id="urlGetter" target="_blank"></a>
+        <script>
+            function callMe() {
+                var url = document.querySelector("#urlGetter");
+                var combo = document.querySelector("body > div > div > form > select");
+                var nameOfSups = document.querySelector("body > div > div > form > input[type=text]");
+                var globalResponse;
+
+                fetch("http://localhost:3000/marvel.json").then(function (response) {
+                    return response.json();
+                }).then(function (response) {
+                    globalResponse = response.find((value) => {
+                        return (nameOfSups.value.toUpperCase() == value.name.toUpperCase())
+                    })
+                    var imageName = globalResponse.name.replaceAll(' ', '-').toLowerCase()
+                    var urlMaker = `https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/${combo.value}/${globalResponse.id}-${imageName}.jpg`
+                    url.href = urlMaker;
+                    url.click();
+                })
+                    .catch(function (error) {
+
+                    });
+            }
+        </script>
+    </div>
+</body>
+
+</html>

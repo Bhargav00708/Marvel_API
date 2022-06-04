@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare</title>
+</head>
+
+<body>
+    <p>Compare Super Power of two Superhero</p>
+    <div style="display: flex;">
+        <input type="text" id="name1">
+        <input type="text" id="name2">
+        <button onclick="callMe()">Submit</button>
+    </div>
+    <div style="display: none;" id="showDiv">
+        <img src="" alt="Image Not available" id="image1">
+        <span>Strength</span>
+        <span>Speed</span>
+        <span>Durability</span>
+        <span>Power</span>
+        <span>Combat</span>
+        <span>Intelligence</span>
+        <img src="" alt="Image Not available" id="image2">
+        <span>Strength</span>
+        <span>Speed</span>
+        <span>Durability</span>
+        <span>Power</span>
+        <span>Combat</span>
+        <span>Intelligence</span>
+        <p>Winner Is </p>
+    </div>
+    <script>
+        function callMe() {
+            var name1 = document.getElementById(`name1`);
+            var name2 = document.getElementById(`name2`);
+            var image1 = document.getElementById(`image1`);
+            var image2 = document.getElementById(`image2`);
+            var showDiv = document.getElementById(`showDiv`);
+            var globalResponse1;
+            var globalResponse2;
+            fetch("http://localhost:3000/marvel.json").then(function (response) {
+                return response.json();
+            }).then(function (response) {
+                globalResponse1 = response.find((value) => {
+                    return (name1.value.toUpperCase() == value.name.toUpperCase())
+                })
+                globalResponse2 = response.find((value) => {
+                    return (name2.value.toUpperCase() == value.name.toUpperCase())
+                })
+
+                var imageName1 = globalResponse1.name.replaceAll(' ', '-').toLowerCase()
+                var urlMaker1 = `https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/${globalResponse1.id}-${imageName1}.jpg`
+
+                var imageName2 = globalResponse2.name.replaceAll(' ', '-').toLowerCase()
+                var urlMaker2 = `https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/${globalResponse2.id}-${imageName2}.jpg`
+
+                image1.src = urlMaker1;
+                image2.src = urlMaker2;
+                showDiv.style.display = ``;
+            })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    </script>
+</body>
+
+</html>
