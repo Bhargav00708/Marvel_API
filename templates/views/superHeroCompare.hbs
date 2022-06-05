@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compare</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
 <body>
@@ -17,20 +18,63 @@
     </div>
     <div style="display: none;" id="showDiv">
         <img src="" alt="Image Not available" id="image1">
-        <span>Strength</span>
-        <span>Speed</span>
-        <span>Durability</span>
-        <span>Power</span>
-        <span>Combat</span>
-        <span>Intelligence</span>
+        <p>Strength</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="strength1"></div>
+        </div>
+        <p>Speed</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="speed1"></div>
+        </div>
+        <p>Durability</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="durability1"></div>
+        </div>
+        <p>Power</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="power1"></div>
+        </div>
+        <p>Combat</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="combat1"></div>
+        </div>
+        <p>Intelligence</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="intelligence1"></div>
+        </div>
         <img src="" alt="Image Not available" id="image2">
-        <span>Strength</span>
-        <span>Speed</span>
-        <span>Durability</span>
-        <span>Power</span>
-        <span>Combat</span>
-        <span>Intelligence</span>
-        <p>Winner Is </p>
+        <p>Strength</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="strength2"></div>
+        </div>
+        <p>Speed</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="speed2"></div>
+        </div>
+        <p>Durability</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="durability2"></div>
+        </div>
+        <p>Power</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="power2"></div>
+        </div>
+        <p>Combat</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="combat2"></div>
+        </div>
+        <p>Intelligence</p>
+        <div class="w3-border">
+            <div class="w3-grey" style="height:24px;width:20%" id="intelligence2"></div>
+        </div>
+            <p id="winstrength"></p>
+            <p id="winspeed"></p>
+            <p id="windurability"></p>
+            <p id="winpower"></p>
+            <p id="wincombat"></p>
+            <p id="winintelligence"></p>
+            <p id="winner"></p>
+
     </div>
     <script>
         function callMe() {
@@ -39,6 +83,39 @@
             var image1 = document.getElementById(`image1`);
             var image2 = document.getElementById(`image2`);
             var showDiv = document.getElementById(`showDiv`);
+            var totalAbilitiesCountSups1 = 0;
+            var totalAbilitiesCountSups2 = 0;
+
+            var elestrength1 = document.getElementById(`strength1`);
+            var elespeed1 = document.getElementById(`speed1`);
+            var eledurability1 = document.getElementById(`durability1`);
+            var elepower1 = document.getElementById(`power1`);
+            var elecombat1 = document.getElementById(`combat1`);
+            var eleintelligence1 = document.getElementById(`intelligence1`);
+
+            var elestrength2 = document.getElementById(`strength2`);
+            var elespeed2 = document.getElementById(`speed2`);
+            var eledurability2 = document.getElementById(`durability2`);
+            var elepower2 = document.getElementById(`power2`);
+            var elecombat2 = document.getElementById(`combat2`);
+            var eleintelligence2 = document.getElementById(`intelligence2`);
+
+            var overallwinner = document.getElementById(`winner`);
+            var winstrength = document.getElementById(`winstrength`);
+            var winspeed = document.getElementById(`winspeed`);
+            var windurability = document.getElementById(`windurability`);
+            var winpower = document.getElementById(`winpower`);
+            var wincombat = document.getElementById(`wincombat`);
+            var winintelligence = document.getElementById(`winintelligence`);
+
+            overallwinner.innerText = `Overall Winner Is`;
+            winstrength.innerText = `Strength Winner Is`;
+            winspeed.innerText = `Speed Winner Is`;
+            windurability.innerText = `Durability Winner Is`;
+            winpower.innerText = `Power Winner Is`;
+            wincombat.innerText = `Combat Winner Is`;
+            winintelligence.innerText = `Intelligence Winner Is`;
+
             var globalResponse1;
             var globalResponse2;
             fetch("http://localhost:3000/marvel.json").then(function (response) {
@@ -51,14 +128,145 @@
                     return (name2.value.toUpperCase() == value.name.toUpperCase())
                 })
 
+                var strength1 = parseInt(globalResponse1.strength);
+                var speed1 = parseInt(globalResponse1.speed);
+                var durability1 = parseInt(globalResponse1.durability);
+                var power1 = parseInt(globalResponse1.power);
+                var combat1 = parseInt(globalResponse1.combat);
+                var intelligence1 = parseInt(globalResponse1.intelligence);
+                var firstOriganlname = globalResponse1.name; 
                 var imageName1 = globalResponse1.name.replaceAll(' ', '-').toLowerCase()
-                var urlMaker1 = `https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/${globalResponse1.id}-${imageName1}.jpg`
+                var urlMaker1 = `https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/sm/${globalResponse1.id}-${imageName1}.jpg`
 
+                var strength2 = parseInt(globalResponse2.strength);
+                var speed2 = parseInt(globalResponse2.speed);
+                var durability2 = parseInt(globalResponse2.durability);
+                var power2 = parseInt(globalResponse2.power);
+                var combat2 = parseInt(globalResponse2.combat);
+                var intelligence2 = parseInt(globalResponse2.intelligence);
+                var secondOriganalName = globalResponse2.name;
                 var imageName2 = globalResponse2.name.replaceAll(' ', '-').toLowerCase()
-                var urlMaker2 = `https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/${globalResponse2.id}-${imageName2}.jpg`
+                var urlMaker2 = `https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/sm/${globalResponse2.id}-${imageName2}.jpg`
 
                 image1.src = urlMaker1;
+                elestrength1.style.width = `${strength1}%`;
+                elespeed1.style.width = `${speed1}%`;
+                eledurability1.style.width = `${durability1}%`;
+                elepower1.style.width = `${power1}%`;
+                elecombat1.style.width = `${combat1}%`;
+                eleintelligence1.style.width = `${intelligence1}%`;
+
                 image2.src = urlMaker2;
+                elestrength2.style.width = `${strength2}%`;
+                elespeed2.style.width = `${speed2}%`;
+                eledurability2.style.width = `${durability2}%`;
+                elepower2.style.width = `${power2}%`;
+                elecombat2.style.width = `${combat2}%`;
+                eleintelligence2.style.width = `${intelligence2}%`;
+
+                if(strength1 == strength2)
+                {
+                    winstrength.innerText+=` Both SuperHero`;             
+                }
+                else if(strength1 > strength2)
+                {
+                    winstrength.innerText+=` ${firstOriganlname}`;
+                    totalAbilitiesCountSups1++;             
+                }
+                else
+                {
+                    winstrength.innerText+=` ${secondOriganalName}`;
+                    totalAbilitiesCountSups2++;
+                }
+
+                if(speed1 == speed2)
+                {
+                    winspeed.innerText+=` Both SuperHero`;             
+                }
+                else if(speed1 > speed2)
+                {
+                    winspeed.innerText+=` ${firstOriganlname}`;             
+                    totalAbilitiesCountSups1++;
+                }
+                else
+                {
+                    winspeed.innerText+=` ${secondOriganalName}`;
+                    totalAbilitiesCountSups2++;
+                }
+                
+                if(power1 == power2)
+                {
+                    winpower.innerText+=` Both SuperHero`;             
+                }
+                else if(power1 > power2)
+                {
+                    winpower.innerText+=` ${firstOriganlname}`;             
+                    totalAbilitiesCountSups1++;
+                }
+                else
+                {
+                    winpower.innerText+=` ${secondOriganalName}`;
+                    totalAbilitiesCountSups2++;
+                }
+
+                if(combat1 == combat2)
+                {
+                    wincombat.innerText+=` Both SuperHero`;             
+                }
+                else if(combat1 > combat2)
+                {
+                    wincombat.innerText+=` ${firstOriganlname}`;             
+                    totalAbilitiesCountSups1++;
+                }
+                else
+                {
+                    wincombat.innerText+=` ${secondOriganalName}`;
+                    totalAbilitiesCountSups2++;
+                }
+
+                if(intelligence1 == intelligence2)
+                {
+                    winintelligence.innerText+=` Both SuperHero`;             
+                }
+                else if(intelligence1 > intelligence2)
+                {
+                    winintelligence.innerText+=` ${firstOriganlname}`;             
+                    totalAbilitiesCountSups1++;
+                }
+                else
+                {
+                    winintelligence.innerText+=` ${secondOriganalName}`;
+                    totalAbilitiesCountSups2++;
+                }
+
+                if(durability1 == durability2)
+                {
+                    windurability.innerText+=` Both SuperHero`;             
+                }
+                else if(durability1 > durability2)
+                {
+                    windurability.innerText+=` ${firstOriganlname}`;       
+                    totalAbilitiesCountSups1++;      
+                }
+                else
+                {
+                    windurability.innerText+=` ${secondOriganalName}`;
+                    totalAbilitiesCountSups2++;
+                }
+
+                if(totalAbilitiesCountSups1 == totalAbilitiesCountSups2)
+                {
+                    overallwinner.innerText += ` Both SuperHero`;
+                }
+                else if(totalAbilitiesCountSups1 > totalAbilitiesCountSups2)
+                {
+                    overallwinner.innerText += ` ${firstOriganlname}`;
+                }
+                else
+                {
+                    overallwinner.innerText += ` ${secondOriganalName}`;
+                }
+
                 showDiv.style.display = ``;
             })
                 .catch(function (error) {
